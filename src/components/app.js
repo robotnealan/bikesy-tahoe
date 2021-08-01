@@ -1,16 +1,14 @@
 /* global window, alert */
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NoSSR from 'react-no-ssr';
 import polyline from '@mapbox/polyline';
 
 import config from 'config/frontendconfig';
 
-import Controls from 'components/controls';
-import Directions from 'components/directions';
 import Elevation from 'components/elevation';
-import Map from 'components/map';
-import TitleBar from 'components/titlebar';
+import Map from 'components/Map';
+import Sidebar from 'components/Sidebar';
 import WelcomeModal from 'components/welcome_modal';
 
 import { getRoute } from 'lib/api';
@@ -19,6 +17,11 @@ import { handleError } from 'lib/error';
 import { geocode, reverseGeocode } from 'lib/geocode';
 import { latlngIsWithinBounds, updateMapSize, getPathDistance } from 'lib/map';
 import { updateUrlParams, readUrlParams, validateUrlParams } from 'lib/url';
+
+// TODO - Eventually move to shared context in separate file or switch to global store like
+// Redux. Helps abstract prop drilling away in the meantime.
+const DataContext = React.createContext();
+const useData = () => useContext(DataContext);
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -282,35 +285,28 @@ const App = () => {
   }, [startAddress, endAddress, scenario]);
 
   return (
-    <div>
-      <TitleBar
-        changeMobileView={changeMobileView}
-        isMobile={isMobile}
-        mobileView={mobileView}
-      />
-      <Controls
-        updateRoute={updateRoute}
-        clearRoute={clearRoute}
-        startAddress={startAddress}
-        endAddress={endAddress}
-        scenario={scenario}
-        loading={loading}
-        isMobile={isMobile}
-        mobileView={mobileView}
-        updateControls={updateControls}
-      />
-      <Directions
-        directions={directions}
-        distance={distance}
-        startLocation={startLocation}
-        endLocation={endLocation}
-        startAddress={startAddress}
-        endAddress={endAddress}
-        elevationProfile={elevationProfile}
-        height={directionsHeight}
-        isMobile={isMobile}
-        mobileView={mobileView}
-      />
+    <DataContext.Provider
+      value={{
+        changeMobileView,
+        clearRoute,
+        directions,
+        directionsHeight,
+        distance,
+        elevationProfile,
+        endAddress,
+        endLocation,
+        isMobile,
+        loading,
+        mobileView,
+        scenario,
+        startAddress,
+        startLocation,
+        updateControls,
+        updateRoute,
+      }}
+    >
+      <Sidebar />
+
       <NoSSR>
         <Map
           startLocation={startLocation}
@@ -338,8 +334,10 @@ const App = () => {
           hideWelcomeModal={hideWelcomeModal}
         />
       </NoSSR>
-    </div>
+    </DataContext.Provider>
   );
 };
 
 export default App;
+
+export { DataContext, useData };

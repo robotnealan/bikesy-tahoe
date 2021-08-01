@@ -1,36 +1,19 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMap, faListAlt } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
-const TitleBar = ({ mobileView, changeMobileView }) => {
-  const getRightButton = () => {
-    if (mobileView === 'map') {
-      return (
-        <button
-          className="btn btn-white btn-sm btn-right d-print-none pt-0"
-          onClick={() => changeMobileView('directions')}
-        >
-          <FontAwesomeIcon icon={faListAlt} /> Directions
-        </button>
-      );
-    }
+const Wrapper = styled.div`
+  left: 1rem;
+  position: fixed;
+  top: 0;
 
-    if (mobileView === 'directions') {
-      return (
-        <button
-          className="btn btn-white btn-sm btn-right d-print-none pt-0"
-          onClick={() => changeMobileView('map')}
-        >
-          <FontAwesomeIcon icon={faMap} /> Map
-        </button>
-      );
-    }
+  img {
+    float: left;
+  }
+`;
 
-    return null;
-  };
-
+const TitleBar = () => {
   return (
-    <div className="titlebar">
-      <h1 className="site-title">
+    <Wrapper>
+      <h1>
         <img
           src="/images/bikesy-logo.png"
           srcSet="/images/bikesy-logo@2x.png 2x"
@@ -38,8 +21,7 @@ const TitleBar = ({ mobileView, changeMobileView }) => {
           className="logo"
         />
       </h1>
-      {getRightButton()}
-    </div>
+    </Wrapper>
   );
 };
 
