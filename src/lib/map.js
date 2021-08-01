@@ -83,6 +83,45 @@ const pathGeoJSON = {
   },
 };
 
+const MAPBOX_DATASETS_API = 'https://api.mapbox.com/datasets/v1/tahoebike';
+
+const DATASETS = [
+  {
+    name: 'Construction',
+    id: 'ck3pdyl2g5fn42tpnfsh5pibh',
+    icon: null,
+  },
+  {
+    name: 'Bike Parking',
+    id: 'ck3pdz0lj0ezu2injv641rf8z',
+    icon: null,
+  },
+  {
+    name: 'Bike Shops',
+    id: 'ck3pdzfet26fm2ilhadvn614o',
+    icon: null,
+  },
+];
+
+function createIconLayer({ layer, id, style, formattingFunction }) {
+  const endpoint = `${MAPBOX_DATASETS_API}/${id}/features?access_token=${config.mapboxAccessToken}`;
+  fetch(endpoint)
+    .then((response) => response.json())
+    .then((geojson) => {
+      if (!geojson) {
+        error.handleError(new Error(`Unable to fetch data for dataset id ${datasetId}`));
+        return;
+      }
+      layer.on('layeradd', (e) => {
+        e.layer.setIcon(L.icon(style));
+        if (formattingFunction) {
+          e.layer.bindPopup(formattingFunction(e.layer.feature.properties));
+        }
+      });
+      layer.setGeoJSON(geojson);
+    });
+}
+
 export function drawMap(handleMapClick, handleMarkerDrag) {
   mapboxgl.accessToken = config.mapboxAccessToken;
 
@@ -142,7 +181,7 @@ export function drawMap(handleMapClick, handleMarkerDrag) {
     center: [config.initialCenterLng, config.initialCenterLat],
     zoom: config.initialZoom,
     minZoom: config.minZoom,
-    style: 'mapbox://styles/bikesy/cisrx1j8h00022wqa7n21sddv',
+    style: `mapbox://styles/${config.mapboxStyleLayer}`,
   });
 
   // Add zoom and rotation controls to the map.
@@ -211,65 +250,11 @@ export function drawMap(handleMapClick, handleMarkerDrag) {
     map.on('touchstart', 'end', () => mouseDown('end'));
   });
 
-  // Bike Lockers layer
-  const lockersDatasetID = 'bikesy/cjdr13xe624z133qhr55la61v';
-  fetch(
-    `https://api.mapbox.com/datasets/v1/${lockersDatasetID}/features?access_token=${config.mapboxAccessToken}`
-  )
-    .then((response) => response.json())
-    .then((geojson) => {
-      // Only show bike lockers
-      const lockersGeoJSON = {
-        type: 'FeatureCollection',
-        features: _.filter(
-          geojson.features,
-          (feature) => feature.properties.type === 'locker'
-        ),
-      };
-
-      lockersGeoJSON.features.forEach((feature) => {
-        feature.properties.description = `<strong>${
-          feature.properties.quantity
-        } Lockers</strong><br>${autoLink.link(feature.properties.description)}`;
-      });
-
-      map.addSource('lockers', {
-        type: 'geojson',
-        data: lockersGeoJSON,
-      });
-
-      map.on('click', 'lockers', (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        let description = '<div><b>' + e.features[0].properties.Name + '</b></div>';
-        description += '<div>' + e.features[0].properties.description + '</div>';
-
-        // Ensure that if the map is zoomed out such that multiple copies of the
-        // feature are visible, the popup appears over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
-      });
-
-      map.on('mouseenter', 'lockers', () => {
-        map.setPaintProperty('lockers', 'circle-color', '#f55ef3');
-        canvas.style.cursor = 'pointer';
-        mouseOverMarker = true;
-      });
-
-      map.on('mouseleave', 'lockers', () => {
-        map.setPaintProperty('lockers', 'circle-color', '#f41cf1');
-        canvas.style.cursor = '';
-        mouseOverMarker = false;
-      });
-    });
+  DATASETS.map(({ name, id }) => createIconLayer());
 }
 
 export function updateStartMarker(latlng) {
-  if (!map) {
-    return;
-  }
+  if (!map) return;
 
   if (latlng) {
     startGeoJSON.geometry.coordinates = [latlng.lng, latlng.lat];

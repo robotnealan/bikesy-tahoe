@@ -332,12 +332,14 @@ const App = () => {
         isMobile={isMobile}
         mobileView={mobileView}
       />
-      <NoSSR>
-        <WelcomeModal
-          showWelcomeModal={showWelcomeModal}
-          hideWelcomeModal={hideWelcomeModal}
-        />
-      </NoSSR>
+      {config.showWelcomeModal && (
+        <NoSSR>
+          <WelcomeModal
+            showWelcomeModal={showWelcomeModal}
+            hideWelcomeModal={hideWelcomeModal}
+          />
+        </NoSSR>
+      )}
     </div>
   );
 };
