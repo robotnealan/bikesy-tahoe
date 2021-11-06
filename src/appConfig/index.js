@@ -1,4 +1,4 @@
-import defaults from 'appConfig/default';
+import defaults from 'appConfig/defaults';
 import sf from 'appConfig/sf';
 import tahoe from 'appConfig/tahoe';
 
