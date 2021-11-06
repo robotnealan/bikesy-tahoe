@@ -3,13 +3,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import About from 'components/About';
 import Controls from 'components/Controls';
 import Datasets from 'components/Datasets';
 import Directions from 'components/Directions';
 import MapLegend from 'components/MapLegend';
 import Titlebar from 'components/Titlebar';
 
-const StyledSidebar = styled.div`
+const StyledSidebar = styled.div``;
+
+const SidebarTop = styled.div`
+  flex: 1 1 auto;
   left: 1rem;
   position: fixed;
   top: 3rem;
@@ -17,14 +21,28 @@ const StyledSidebar = styled.div`
   z-index: 5;
 `;
 
+const SidebarBottom = styled.div`
+  bottom: 0;
+  flex: 0 0 auto;
+  left: 1rem;
+  position: fixed;
+  width: 26rem;
+  z-index: 5;
+`;
+
 const Sidebar = () => (
   <StyledSidebar>
-    <Titlebar />
-    <Controls />
-    <Datasets />
+    <SidebarTop>
+      <Titlebar />
+      <Controls />
+      <Datasets />
+      <Directions />
+    </SidebarTop>
 
-    <Directions />
-    <MapLegend />
+    <SidebarBottom>
+      <MapLegend />
+      <About />
+    </SidebarBottom>
   </StyledSidebar>
 );
 

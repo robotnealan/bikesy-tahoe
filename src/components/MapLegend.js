@@ -1,35 +1,57 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import Card from 'components/Card';
 
-const MapLegend = () => {
-  const [legendVisible, setLegendVisible] = useState();
-  const [bikeLockersVisible, setBikeLockersVisible] = useState(false);
+const LAYERS = [
+  { name: 'Multi-Use Path', color: '#330066' },
+  { name: 'Bike Lane', color: 'hsl(280, 97%, 48%)' },
+  { name: 'Bike Route', color: 'hsl(280, 59%, 71%)' },
+];
 
-  const toggleBikeLockerVisibility = () => {
-    toggleBikeLockerLayer(!bikeLockersVisible);
-    setBikeLockersVisible(!bikeLockersVisible);
-  };
+const Wrapper = styled.div`
+  display: flex;
+`;
 
-  return (
-    <Card className="map-layers">
-      <div className="map-legend-item" title="paved, separated (off the street) bikeways">
-        <div className="map-legend-icon class1"></div>
-        <label>Multi-use Path</label>
-      </div>
-      <div
-        className="map-legend-item"
-        title="dedicated on-street bikeways, marked by striping on pavement"
-      >
-        <div className="map-legend-icon class2"></div>
-        <label>Bike Lane</label>
-      </div>
-      <div className="map-legend-item" title="on-street routes signed for bicyclists">
-        <div className="map-legend-icon class3"></div>
-        <label>Bike Route</label>
-      </div>
-    </Card>
-  );
-};
+const Layer = styled.div`
+  align-items: center;
+  display: flex;
+  margin-right: 1.5rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+`;
+
+const LayerIcon = styled.div`
+  background: ${({ color }) => color};
+  border-radius: 0.4rem;
+  height: 0.3rem;
+  margin-right: 0.6rem;
+  opacity: 0.6;
+  width: 1rem;
+`;
+
+const LayerLabel = styled.span`
+  font-size: 0.875rem;
+  margin-bottom: 0;
+  padding: 2px 0;
+  white-space: nowrap;
+`;
+
+const MapLegend = () => (
+  <Card>
+    <Card.Content>
+      <Wrapper>
+        {LAYERS.map(({ name, color }) => (
+          <Layer>
+            <LayerIcon color={color} />
+            <LayerLabel>{name}</LayerLabel>
+          </Layer>
+        ))}
+      </Wrapper>
+    </Card.Content>
+  </Card>
+);
 
 export default MapLegend;
