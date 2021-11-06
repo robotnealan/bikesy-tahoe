@@ -1,4 +1,4 @@
-export default {
+const config = {
   // Likely common for most regions:
   BIKESY_API_URL: '/api/route',
   INITIAL_ZOOM: 11,
@@ -10,7 +10,7 @@ export default {
   // TODO consider putting placeholders here to force regional overrides
   MAPBOX_STYLE_URL: 'mapbox://styles/bikesy/ckmec4z6h3ekg17lr1fas6kwx',
   INITIAL_CENTER_LAT: 37.7749,
-  INITIAL_CENTER_LON: -122.4194,
+  INITIAL_CENTER_LNG: -122.4194,
   SEARCH_BOUNDS: {
     TOP: 38.0534,
     RIGHT: -121.637,
@@ -20,3 +20,5 @@ export default {
   SHOULD_SHOW_WELCOME_MODAL: true,
   WELCOME_MODAL_TITLE: 'Welcome to Bikesy',
 };
+
+export default config

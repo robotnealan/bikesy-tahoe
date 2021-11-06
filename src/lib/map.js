@@ -128,7 +128,7 @@ export function drawMap(handleMapClick, handleMarkerDrag) {
 
   map = new mapboxgl.Map({
     container: 'map',
-    center: [appConfig.INITIAL_CENTER_LON, appConfig.INITIAL_CENTER_LAT],
+    center: [appConfig.INITIAL_CENTER_LNG, appConfig.INITIAL_CENTER_LAT],
     zoom: appConfig.INITIAL_ZOOM,
     minZoom: appConfig.MIN_ZOOM,
     style: appConfig.MAPBOX_STYLE_URL,
