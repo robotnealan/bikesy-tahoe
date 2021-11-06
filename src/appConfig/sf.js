@@ -1,5 +1,5 @@
 export default {
-  WELCOME_MODAL_TITLE: 'Welcome to Bikesy SF',
+  WELCOME_MODAL_TITLE: 'Welcome to Bikesy',
   SHOULD_SHOW_WELCOME_MODAL: true,
   SERACH_BOUNDS: {
     TOP: 39.368232,
