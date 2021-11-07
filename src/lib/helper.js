@@ -17,8 +17,8 @@ export function formatDistance(miles) {
 }
 
 export function formatTime(miles) {
-  const lowEstimate = miles / appConfig.HIGH_BIKE_SPEED_MPH;
-  const highEstimate = miles / appConfig.LOW_BIKE_SPEED_MPH;
+  const lowEstimate = miles / appConfig.BIKESY_HIGH_BIKE_SPEED_MPH;
+  const highEstimate = miles / appConfig.BIKESY_LOW_BIKE_SPEED_MPH;
 
   let formattedTime;
   if (highEstimate < 1) {
