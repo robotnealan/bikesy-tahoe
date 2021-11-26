@@ -320,6 +320,7 @@
 }
 
 .map-container {
+  height: 100vh;
   position: relative;
   padding-top: 37px;
 }
@@ -440,15 +441,16 @@
 }
 
 @media only screen and (min-width: 667px) {
-  .controls {
-    width: 300px;
-    float: left;
-    padding: 10px 15px;
-    max-width: none;
+  .AppWrapper {
+    display: flex;
+    height: 100vh;
+    width: 100%;
   }
 
-  .controls .start-address .form-control {
-    float: none;
+  .controls {
+    width: 300px;
+    padding: 10px 15px;
+    max-width: none;
   }
 
   .controls .start-address .loading-animation {
@@ -456,7 +458,6 @@
   }
 
   .controls .end-address .form-control {
-    float: none;
     width: 234px;
   }
 
@@ -479,10 +480,9 @@
 
   .directions {
     width: 300px;
-    clear: left;
-    float: left;
     overflow-y: scroll;
   }
+
   .elevation {
     margin-left: 300px;
   }
@@ -499,7 +499,7 @@
   }
 
   .map-container .map {
-    min-height: 400px;
+    height: 100vh;
   }
 
   .map-container .map-layers {

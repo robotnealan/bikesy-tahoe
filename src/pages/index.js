@@ -27,7 +27,6 @@ const Index = () => (
         href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css"
         rel="stylesheet"
       />
-      <link rel="stylesheet" type="text/css" href="css/style.css" />
 
       <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
       <link rel="icon" type="image/png" href="favicon/favicon-32x32.png" sizes="32x32" />

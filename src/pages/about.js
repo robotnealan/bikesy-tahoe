@@ -20,7 +20,6 @@ const About = () => (
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossOrigin="anonymous"
       />
-      <link rel="stylesheet" type="text/css" href="css/style.css" />
 
       <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
       <link rel="icon" type="image/png" href="favicon/favicon-32x32.png" sizes="32x32" />
