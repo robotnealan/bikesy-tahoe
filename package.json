@@ -36,7 +36,8 @@
     "react-modal": "^3.14.3",
     "react-redux": "^7.2.6",
     "recharts": "^2.1.6",
-    "redux": "^4.1.2"
+    "redux": "^4.1.2",
+    "sass": "^1.43.5"
   },
   "devDependencies": {
     "eslint": "<8.0.0",

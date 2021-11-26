@@ -1,0 +1,26 @@
+.MapWrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.MapWrapper__sidebar {
+  flex: 0 0 300px;
+  position: relative;
+  width: 300px;
+}
+
+.MapWrapper__main {
+  flex: 1 1 auto;
+}
+
+.site-title {
+  position: absolute;
+  right: -150px;
+  top: 0;
+  z-index: 5;
+
+  img {
+    float: left;
+  }
+}
