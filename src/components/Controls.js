@@ -8,14 +8,7 @@ import { scenarioToComponents, componentsToScenario } from 'lib/scenarios';
 import Crosshairicon from './icons/crosshairs-solid.svg';
 import CircleNotchIcon from './icons/circle-notch-solid.svg';
 
-const Controls = ({
-  updateRoute,
-  updateControls,
-  mobileView,
-  isMobile,
-  scenario,
-  loading,
-}) => {
+const Controls = ({ updateRoute, updateControls, mobileView, scenario, loading }) => {
   const dispatch = useDispatch();
   const startAddress = useSelector((state) => state.search.startAddress);
   const endAddress = useSelector((state) => state.search.endAddress);
@@ -151,7 +144,7 @@ const Controls = ({
   return (
     <div
       className="controls d-print-none"
-      hidden={mobileView !== 'directions' && isMobile}
+      // hidden={mobileView !== 'directions' && isMobile}
     >
       <form onSubmit={processForm}>
         <div

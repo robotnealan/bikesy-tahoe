@@ -12,7 +12,7 @@ import {
 } from 'lib/helper';
 import { getCenter } from 'lib/map';
 
-const Directions = ({ isMobile, mobileView, height }) => {
+const Directions = ({ mobileView }) => {
   const directions = useSelector((state) => state.search.directions);
   const startAddress = useSelector((state) => state.search.startAddress);
   const endAddress = useSelector((state) => state.search.endAddress);
@@ -80,8 +80,7 @@ const Directions = ({ isMobile, mobileView, height }) => {
   return (
     <div
       className="directions"
-      hidden={isMobile && mobileView !== 'directions'}
-      style={{ height: height ? `${height}px` : 'auto' }}
+      // hidden={isMobile && mobileView !== 'directions'}
     >
       {getDirections()}
 

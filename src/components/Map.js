@@ -10,18 +10,13 @@ import {
   updateMapSize,
 } from 'lib/map';
 
-const Map = ({
-  isMobile,
-  mobileView,
-  height,
-  assignStartLocation,
-  assignEndLocation,
-}) => {
+const Map = ({ mobileView, assignStartLocation, assignEndLocation }) => {
   const startLocation = useSelector((state) => state.search.startLocation);
   const endLocation = useSelector((state) => state.search.endLocation);
   const path = useSelector((state) => state.search.path);
 
-  const [legendVisible, setLegendVisible] = useState(!isMobile);
+  const [legendVisible, setLegendVisible] = useState(true);
+  // useState(!isMobile);
 
   const startLocationRef = useRef(startLocation);
   const endLocationRef = useRef(endLocation);
@@ -70,12 +65,8 @@ const Map = ({
     updatePath(path);
   }, [path]);
 
-  useEffect(() => {
-    updateMapSize();
-  }, [height]);
-
   return (
-    <div className="map-container" hidden={isMobile && mobileView !== 'map'}>
+    <div className="map-container" /*hidden={isMobile && mobileView !== 'map'}*/>
       <div className="logo">
         <img
           src="/images/bikesy-logo.png"
@@ -83,7 +74,9 @@ const Map = ({
           alt="logo"
         />
       </div>
-      <div className="map" id="map" style={{ height: `${height}px` }}></div>
+
+      <div className="map" id="map"></div>
+
       {legendVisible ? (
         <div className="map-layers d-print-none">
           <div className="close-box" onClick={toggleLegendVisibility}>

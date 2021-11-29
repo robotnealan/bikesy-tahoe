@@ -45,7 +45,6 @@ const IndexPage = () => {
   const [loading, setLoading] = useState(false);
   const [scenario, setScenario] = useState('5');
   const [mobileView, setMobileView] = useState('map');
-  const [isMobile, setIsMobile] = useState();
   const [showWelcomeModal, setShowWelcomeModal] = useState(
     appConfig.SHOULD_SHOW_WELCOME_MODAL
   );
@@ -56,15 +55,6 @@ const IndexPage = () => {
   });
 
   const [elevationVisible, setElevationVisible] = useState(false);
-
-  const handleResize = () => {
-    setWindowSize({
-      height: window.innerHeight,
-      width: window.innerWidth,
-    });
-
-    setIsMobile(checkMobile(window.innerWidth));
-  };
 
   const updateRoute = async (selectedStartAddress, selectedEndAddress) => {
     dispatch(clearPath());
@@ -97,7 +87,6 @@ const IndexPage = () => {
       return;
     }
 
-    console.log('[A]', typeof results[0], results[0]);
     dispatch(setStartLocation(results[0]));
     dispatch(setEndLocation(results[1]));
     setMobileView('map');
@@ -108,7 +97,6 @@ const IndexPage = () => {
 
     try {
       const results = await getRoute(startLocation, endLocation, scenario);
-
       setLoading(false);
 
       if (!results.path || !results.path.length) {
@@ -140,7 +128,6 @@ const IndexPage = () => {
 
   const assignStartLocation = (latlng) => {
     dispatch(clearPath());
-    console.log('[B]', latlng, typeof latlng);
     dispatch(setStartLocation(latlng));
     dispatch(setStartAddress(''));
 
@@ -158,9 +145,7 @@ const IndexPage = () => {
     dispatch(setEndAddress(''));
 
     reverseGeocode(latlng).then((address) => {
-      if (!address) {
-        return handleError('Unable to get reverse geocoding result.');
-      }
+      if (!address) return handleError('Unable to get reverse geocoding result.');
 
       dispatch(setEndAddress(address));
     });
@@ -191,35 +176,6 @@ const IndexPage = () => {
     setShowWelcomeModal(false);
   };
 
-  const checkMobile = (width) => {
-    if (width === undefined) return false;
-
-    const mobileBreakpoint = 667;
-    return width <= mobileBreakpoint;
-  };
-
-  const controlsHeight = 252;
-  const sidebarWidth = 300;
-  const titlebarHeight = 38;
-  let elevationWidth;
-  let directionsHeight;
-  let mapHeight = windowSize.height;
-
-  if (isMobile) {
-    elevationWidth = windowSize.width;
-  } else {
-    elevationWidth = windowSize.width - sidebarWidth;
-    directionsHeight = windowSize.height - controlsHeight;
-  }
-
-  if (elevationVisible && elevationProfile) {
-    mapHeight -= ELEVATION_HEIGHT;
-  }
-
-  if (isMobile) {
-    mapHeight -= titlebarHeight;
-  }
-
   useEffect(() => {
     const urlParameters = readUrlParams();
 
@@ -230,21 +186,6 @@ const IndexPage = () => {
 
       updateRoute(urlParameters[0], urlParameters[1]);
     }
-
-    const isMobileCalc = checkMobile(window.innerWidth);
-
-    setWindowSize({
-      height: window.innerHeight,
-      width: window.innerWidth,
-    });
-
-    setIsMobile(isMobileCalc);
-    setElevationVisible(!isMobileCalc);
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   useEffect(() => {
@@ -304,32 +245,22 @@ const IndexPage = () => {
         <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
       </Head>
       <div>
-        <TitleBar
-          changeMobileView={changeMobileView}
-          isMobile={isMobile}
-          mobileView={mobileView}
-        />
+        <TitleBar changeMobileView={changeMobileView} mobileView={mobileView} />
 
         <Controls
           updateRoute={updateRoute}
           scenario={scenario}
           loading={loading}
-          isMobile={isMobile}
           mobileView={mobileView}
           updateControls={updateControls}
         />
 
-        <Directions
-          height={directionsHeight}
-          isMobile={isMobile}
-          mobileView={mobileView}
-        />
+        <Directions height={directionsHeight} mobileView={mobileView} />
 
         <Map
           assignStartLocation={assignStartLocation}
           assignEndLocation={assignEndLocation}
           height={mapHeight}
-          isMobile={isMobile}
           mobileView={mobileView}
         />
 
@@ -338,7 +269,6 @@ const IndexPage = () => {
           height={ELEVATION_HEIGHT}
           toggleElevationVisibility={toggleElevationVisibility}
           elevationVisible={elevationVisible && Boolean(elevationProfile)}
-          isMobile={isMobile}
           mobileView={mobileView}
         />
 

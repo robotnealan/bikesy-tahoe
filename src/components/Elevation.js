@@ -15,13 +15,14 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
+const ELEVATION_HEIGHT = 175;
+
 const Elevation = ({
   elevationVisible,
-  isMobile,
   mobileView,
   toggleElevationVisibility,
   width,
-  height,
+  height = ELEVATION_HEIGHT,
 }) => {
   const elevationProfile = useSelector((state) => state.search.elevationProfile);
 
@@ -31,7 +32,7 @@ const Elevation = ({
     return (
       <div
         className="elevation-open-box"
-        hidden={isMobile && mobileView !== 'map'}
+        // hidden={isMobile && mobileView !== 'map'}
         onClick={toggleElevationVisibility}
       >
         Elevation Profile
@@ -47,7 +48,7 @@ const Elevation = ({
   });
 
   return (
-    <div className="elevation" hidden={isMobile && mobileView !== 'map'}>
+    <div className="elevation" /*hidden={isMobile && mobileView !== 'map'}*/>
       <div className="close-box d-print-none" onClick={toggleElevationVisibility}>
         &minus;
       </div>
