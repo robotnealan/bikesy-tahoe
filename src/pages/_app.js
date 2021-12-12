@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import store from '@redux/store';
 
+import '@styles/style.scss';
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
@@ -30,7 +31,6 @@ class MyApp extends App {
             href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css"
             rel="stylesheet"
           />
-          <link rel="stylesheet" type="text/css" href="css/style.css" />
 
           <link
             rel="apple-touch-icon"

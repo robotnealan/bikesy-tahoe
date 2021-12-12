@@ -1,30 +1,42 @@
+// .titlebar {
+//   height: 37px;
+//   background-color: #f1f0f0;
+//   border-bottom: 1px solid #ccc;
+//   position: fixed;
+//   width: 100%;
+//   z-index: 10;
+
+//   .site-title {
+//     font-size: 14px;
+//     margin: 0;
+//     line-height: 35px;
+//     padding-left: 10px;
+
+//     .logo {
+//       height: 30px;
+//     }
+
+//     .titlebar-text {
+//       padding-left: 6px;
+//     }
+//   }
+
+//   .btn-left {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     margin: 3px 5px;
+//   }
+
+//   .btn-right {
+//     position: absolute;
+//     right: 0;
+//     top: 0;
+//     margin: 4px 5px;
+//   }
+// }
+
 const TitleBar = ({ mobileView, changeMobileView }) => {
-  const getRightButton = () => {
-    if (mobileView === 'map') {
-      return (
-        <button
-          className="btn btn-white btn-sm btn-right d-print-none pt-0"
-          onClick={() => changeMobileView('directions')}
-        >
-          Directions
-        </button>
-      );
-    }
-
-    if (mobileView === 'directions') {
-      return (
-        <button
-          className="btn btn-white btn-sm btn-right d-print-none pt-0"
-          onClick={() => changeMobileView('map')}
-        >
-          Map
-        </button>
-      );
-    }
-
-    return null;
-  };
-
   return (
     <div className="titlebar">
       <h1 className="site-title">
@@ -35,7 +47,24 @@ const TitleBar = ({ mobileView, changeMobileView }) => {
           className="logo"
         />
       </h1>
-      {getRightButton()}
+
+      {mobileView === 'map' && (
+        <button
+          className="btn btn-white btn-sm btn-right d-print-none pt-0"
+          onClick={() => changeMobileView('directions')}
+        >
+          Directions
+        </button>
+      )}
+
+      {mobileView === 'directions' && (
+        <button
+          className="btn btn-white btn-sm btn-right d-print-none pt-0"
+          onClick={() => changeMobileView('map')}
+        >
+          Map
+        </button>
+      )}
     </div>
   );
 };

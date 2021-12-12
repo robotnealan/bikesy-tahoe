@@ -16,7 +16,6 @@ const Map = ({ mobileView, assignStartLocation, assignEndLocation }) => {
   const path = useSelector((state) => state.search.path);
 
   const [legendVisible, setLegendVisible] = useState(true);
-  // useState(!isMobile);
 
   const startLocationRef = useRef(startLocation);
   const endLocationRef = useRef(endLocation);

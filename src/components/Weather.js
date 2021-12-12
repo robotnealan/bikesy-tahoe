@@ -4,6 +4,52 @@ import classNames from 'classnames';
 import { getWeather } from 'lib/weather';
 import { getAirQuality } from 'lib/airquality';
 
+// .weather {
+//   padding: 3px 0;
+
+//   .temperature,
+//   .humidity,
+//   .weather-description {
+//     display: inline-block;
+//     padding-right: 10px;
+//   }
+
+//   .air-quality-box {
+//     display: inline-block;
+//     padding: 2px 3px;
+//     margin-left: 6px;
+//     border: 1px solid #c1c1c1;
+//   }
+
+//   .air-quality-box-1 {
+//     background-color: #00e400;
+//   }
+
+//   .air-quality-box-2 {
+//     background-color: #ffff00;
+//   }
+
+//   .air-quality-box-3 {
+//     background-color: #ff7e00;
+//     color: #ffffff;
+//   }
+
+//   .air-quality-box-4 {
+//     background-color: #ff0000;
+//     color: #ffffff;
+//   }
+
+//   .air-quality-box-5 {
+//     background-color: #99004c;
+//     color: #ffffff;
+//   }
+
+//   .air-quality-box-6 {
+//     background-color: #7e0023;
+//     color: #ffffff;
+//   }
+// }
+
 const Weather = ({ lat, lng }) => {
   const [weather, setWeather] = useState();
   const [airQuality, setAirQuality] = useState();
@@ -59,6 +105,7 @@ const Weather = ({ lat, lng }) => {
       <div className="temperature">{weather.temperature}&deg;F</div>
       <div className="weather-description">{weather.description}</div>
       <div className="humidity">Humidity: {weather.humidity}%</div>
+
       {airQuality && (
         <div className="air-quality" hidden={airQuality.aqi === undefined}>
           Air Quality:

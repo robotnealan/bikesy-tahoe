@@ -16,6 +16,7 @@ module.exports = {
     config.resolve.alias['pages'] = path.join(__dirname, 'src/pages');
     config.resolve.alias['@redux'] = path.join(__dirname, 'src/redux');
     config.resolve.alias['slices'] = path.join(__dirname, 'src/redux/slices');
+    config.resolve.alias['@styles'] = path.join(__dirname, 'src/styles');
 
     config.module.rules.push({
       test: /\.svg$/,

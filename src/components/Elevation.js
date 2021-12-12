@@ -3,23 +3,51 @@ import { useSelector } from 'react-redux';
 
 import { formatElevation, metersToFeet, metersToMiles } from 'lib/helper';
 
-const CustomTooltip = ({ active, payload }) => {
-  if (active) {
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{formatElevation(payload[0].value)}</p>
-      </div>
-    );
-  }
+// .elevation {
+//   background: #fff;
+//   position: relative;
+//   border-left: 1px solid #ccc;
+//   border-top: 1px solid #ccc;
+//   box-sizing: border-box;
+//   height: 175px;
 
-  return null;
+//   .close-box {
+//     position: absolute;
+//     z-index: 1;
+//     top: 2px;
+//     right: 2px;
+//     color: #333;
+//     cursor: pointer;
+//     width: 20px;
+//     height: 20px;
+//     text-align: center;
+//     line-height: 20px;
+//     font-size: 20px;
+//   }
+
+//   .legend {
+//     display: none;
+//   }
+
+//   .grid-axis .tick {
+//     display: none;
+//   }
+// }
+
+const CustomTooltip = ({ active, payload }) => {
+  if (!active) return null;
+
+  return (
+    <div className="custom-tooltip">
+      <p className="label">{formatElevation(payload[0].value)}</p>
+    </div>
+  );
 };
 
 const ELEVATION_HEIGHT = 175;
 
 const Elevation = ({
   elevationVisible,
-  mobileView,
   toggleElevationVisibility,
   width,
   height = ELEVATION_HEIGHT,
@@ -86,6 +114,7 @@ const Elevation = ({
             scale: 'linear',
           }}
         />
+
         <Tooltip content={<CustomTooltip />} />
       </LineChart>
     </div>

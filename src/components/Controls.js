@@ -8,6 +8,180 @@ import { scenarioToComponents, componentsToScenario } from 'lib/scenarios';
 import Crosshairicon from './icons/crosshairs-solid.svg';
 import CircleNotchIcon from './icons/circle-notch-solid.svg';
 
+// .controls {
+//   padding: 62px 15px 25px;
+//   max-width: 320px;
+//   margin: 0 auto;
+
+//   .form-group {
+//     overflow: hidden;
+//     justify-content: space-between;
+//   }
+
+//   .start-address {
+//     height: 43px;
+//     overflow: hidden;
+//     margin-bottom: 0;
+//     position: relative;
+
+//     .control-label {
+//       display: none;
+//     }
+
+//     .start-icon {
+//       margin-right: 10px;
+//       width: 24px;
+//       height: 24px;
+//       background: #19b566;
+//       border-radius: 50%;
+//       border: 1px solid #0d5731;
+//       text-align: center;
+//       color: #fff;
+//       font-size: 16px;
+//       font-weight: bold;
+//       line-height: 22px;
+//     }
+
+//     .form-control {
+//       vertical-align: 18px;
+//       width: 194px;
+//       display: inline-block;
+//       float: right;
+//     }
+
+//     .loading-animation {
+//       position: absolute;
+//       left: 60px;
+//       color: #555;
+//       width: 20px;
+//       height: 20px;
+//       animation-name: spin;
+//       animation-duration: 3s;
+//       animation-iteration-count: infinite;
+//       animation-timing-function: linear;
+//       display: none;
+//     }
+
+//     &.geolocation-pending {
+//       .loading-animation {
+//         display: block;
+//       }
+
+//       .form-control {
+//         color: transparent;
+//       }
+//     }
+
+//     .btn-geolocation {
+//       width: 34px;
+//       height: 43px;
+//       display: inline-block;
+//       float: right;
+//       cursor: pointer;
+//       padding-left: 4px;
+//       padding-right: 4px;
+//       margin-left: 6px;
+//     }
+//   }
+
+//   .end-address {
+//     height: 43px;
+//     overflow: hidden;
+//     margin-bottom: 0;
+
+//     .control-label {
+//       display: none;
+//     }
+//     .end-icon {
+//       margin-right: 10px;
+//       width: 24px;
+//       height: 24px;
+//       background: #cf3043;
+//       border-radius: 50%;
+//       border: 1px solid #58131c;
+//       text-align: center;
+//       color: #fff;
+//       font-size: 16px;
+//       font-weight: bold;
+//       line-height: 22px;
+//     }
+
+//     .form-control {
+//       vertical-align: 18px;
+//       width: 245px;
+//       display: inline-block;
+//       float: right;
+//     }
+//   }
+
+//   .route-type {
+//     margin-top: 8px;
+//     margin-bottom: 8px;
+
+//     .control-label {
+//       line-height: 30px;
+//       margin-bottom: 1px;
+//     }
+//   }
+
+//   .hill-reluctance {
+//     margin-bottom: 8px;
+
+//     .control-label {
+//       line-height: 30px;
+//       margin-bottom: 1px;
+//     }
+//   }
+//   .clear-link {
+//     color: #333;
+//     line-height: 31px;
+//   }
+
+//   .btn-update-route {
+//     float: right;
+//     display: flex;
+//     align-items: center;
+
+//     .loading-animation {
+//       width: 20px;
+//       height: 20px;
+//       margin-right: 6px;
+//       animation-name: spin;
+//       animation-duration: 3s;
+//       animation-iteration-count: infinite;
+//       animation-timing-function: linear;
+//     }
+//   }
+
+//   .disclaimer {
+//     clear: both;
+//     font-size: 10px;
+//     margin-top: 30px;
+//   }
+// }
+
+// .directions {
+//   padding: 10px 15px;
+
+//   h3 {
+//     font-size: 14px;
+//     margin-top: 0;
+//     font-weight: normal;
+//   }
+
+//   .directions-list {
+//     list-style-type: none;
+//     padding: 10px 0 0;
+
+//     li {
+//       border-bottom: #ccc 1px solid;
+//       padding: 3px 0;
+//       font-size: 11px;
+//       text-transform: capitalize;
+//     }
+//   }
+// }
+
 const Controls = ({ updateRoute, updateControls, mobileView, scenario, loading }) => {
   const dispatch = useDispatch();
   const startAddress = useSelector((state) => state.search.startAddress);
