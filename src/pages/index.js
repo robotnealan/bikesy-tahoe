@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import polyline from '@mapbox/polyline';
@@ -31,6 +32,34 @@ import {
 } from '@redux/slices/search';
 
 import appConfig from 'appConfig';
+import Card from '../components/Card';
+
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100%;
+`;
+
+const Sidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  left: 1rem;
+  position: fixed;
+  top: 1rem;
+  z-index: 2;
+`;
+
+const SidebarTop = styled.div`
+  flex: 1 1 auto;
+`;
+
+const SidebarBottom = styled.div`
+  flex: 0 1 auto;
+`;
+
+const Disclaimer = styled.div`
+  font-size: 0.75rem;
+`;
 
 const IndexPage = () => {
   const dispatch = useDispatch();
@@ -42,15 +71,9 @@ const IndexPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [scenario, setScenario] = useState('5');
-  const [mobileView, setMobileView] = useState('map');
   const [showWelcomeModal, setShowWelcomeModal] = useState(
     appConfig.SHOULD_SHOW_WELCOME_MODAL
   );
-
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
 
   const [elevationVisible, setElevationVisible] = useState(false);
 
@@ -87,7 +110,7 @@ const IndexPage = () => {
 
     dispatch(setStartLocation(results[0]));
     dispatch(setEndLocation(results[1]));
-    setMobileView('map');
+    // setMobileView('map');
   };
 
   const fetchRoute = async () => {
@@ -161,14 +184,6 @@ const IndexPage = () => {
     updateMapSize();
   };
 
-  const changeMobileView = (mobileView) => {
-    setMobileView(mobileView);
-
-    if (mobileView === 'map') {
-      updateMapSize();
-    }
-  };
-
   const hideWelcomeModal = (event) => {
     event.preventDefault();
     setShowWelcomeModal(false);
@@ -200,36 +215,52 @@ const IndexPage = () => {
         <title>{appConfig.PAGE_TITLE}</title>
       </Head>
 
-      <div>
-        <TitleBar changeMobileView={changeMobileView} mobileView={mobileView} />
+      <Wrapper>
+        <Sidebar>
+          <SidebarTop>
+            <TitleBar />
 
-        <Controls
-          updateRoute={updateRoute}
-          scenario={scenario}
-          loading={loading}
-          mobileView={mobileView}
-          updateControls={updateControls}
-        />
+            <Controls
+              updateRoute={updateRoute}
+              scenario={scenario}
+              loading={loading}
+              updateControls={updateControls}
+            />
 
-        <Directions mobileView={mobileView} />
+            <Directions />
+          </SidebarTop>
+
+          <SidebarBottom>
+            <Card>
+              <Card.Content>
+                <Disclaimer>
+                  We offer no guarantee regarding roadway conditions or safety of the
+                  proposed routes. Use your best judgment when choosing a route. Obey all
+                  vehicle code provisions.
+                  <a className="disclaimer" href={appConfig.ABOUT_LINK_URL}>
+                    {appConfig.ABOUT_LINK_TITLE}
+                  </a>
+                </Disclaimer>
+              </Card.Content>
+            </Card>
+          </SidebarBottom>
+        </Sidebar>
 
         <Map
           assignStartLocation={assignStartLocation}
           assignEndLocation={assignEndLocation}
-          mobileView={mobileView}
         />
 
         <Elevation
           toggleElevationVisibility={toggleElevationVisibility}
           elevationVisible={elevationVisible && Boolean(elevationProfile)}
-          mobileView={mobileView}
         />
 
         <WelcomeModal
           showWelcomeModal={showWelcomeModal}
           hideWelcomeModal={hideWelcomeModal}
         />
-      </div>
+      </Wrapper>
     </>
   );
 };

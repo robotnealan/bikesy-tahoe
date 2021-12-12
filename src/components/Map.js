@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 import {
   latlngIsWithinBounds,
@@ -7,10 +8,22 @@ import {
   updateStartMarker,
   updateEndMarker,
   updatePath,
-  updateMapSize,
 } from 'lib/map';
 
-const Map = ({ mobileView, assignStartLocation, assignEndLocation }) => {
+const Wrapper = styled.div`
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+`;
+
+const StyledMap = styled.div`
+  height: 100vh;
+  width: 100%;
+`;
+
+const Map = ({ assignStartLocation, assignEndLocation }) => {
   const startLocation = useSelector((state) => state.search.startLocation);
   const endLocation = useSelector((state) => state.search.endLocation);
   const path = useSelector((state) => state.search.path);
@@ -21,24 +34,20 @@ const Map = ({ mobileView, assignStartLocation, assignEndLocation }) => {
   const endLocationRef = useRef(endLocation);
 
   const handleMapClick = (latlng) => {
-    if (!startLocationRef.current) {
-      if (latlngIsWithinBounds(latlng)) {
-        assignStartLocation(latlng);
-      }
-    } else if (!endLocationRef.current) {
-      if (latlngIsWithinBounds(latlng)) {
-        assignEndLocation(latlng);
-      }
+    if (!startLocationRef.current && latlngIsWithinBounds(latlng)) {
+      assignStartLocation(latlng);
+    } else if (!endLocationRef.current && latlngIsWithinBounds(latlng)) {
+      assignEndLocation(latlng);
     }
   };
 
   const handleMarkerDrag = (latlng, type) => {
-    if (latlngIsWithinBounds(latlng)) {
-      if (type === 'start') {
-        assignStartLocation(latlng);
-      } else if (type === 'end') {
-        assignEndLocation(latlng);
-      }
+    if (!latlngIsWithinBounds(latlng)) return;
+
+    if (type === 'start') {
+      assignStartLocation(latlng);
+    } else if (type === 'end') {
+      assignEndLocation(latlng);
     }
   };
 
@@ -65,16 +74,8 @@ const Map = ({ mobileView, assignStartLocation, assignEndLocation }) => {
   }, [path]);
 
   return (
-    <div className="map-container" /*hidden={isMobile && mobileView !== 'map'}*/>
-      <div className="logo">
-        <img
-          src="/images/bikesy-logo.png"
-          srcSet="/images/bikesy-logo@2x.png 2x"
-          alt="logo"
-        />
-      </div>
-
-      <div className="map" id="map"></div>
+    <Wrapper>
+      <StyledMap className="map" id="map"></StyledMap>
 
       {legendVisible ? (
         <div className="map-layers d-print-none">
@@ -110,7 +111,7 @@ const Map = ({ mobileView, assignStartLocation, assignEndLocation }) => {
           Toggle Map Legend
         </div>
       )}
-    </div>
+    </Wrapper>
   );
 };
 

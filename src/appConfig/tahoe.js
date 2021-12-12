@@ -1,6 +1,6 @@
 const config = {
   WELCOME_MODAL_TITLE: 'Welcome to the Tahoe Bike Map',
-  SHOULD_SHOW_WELCOME_MODAL: true,
+  SHOULD_SHOW_WELCOME_MODAL: false,
   SEARCH_BOUNDS: {
     TOP: 39.368232,
     RIGHT: -119.659482,

@@ -58,11 +58,7 @@ const Elevation = ({
 
   if (!elevationVisible) {
     return (
-      <div
-        className="elevation-open-box"
-        // hidden={isMobile && mobileView !== 'map'}
-        onClick={toggleElevationVisibility}
-      >
+      <div className="elevation-open-box" onClick={toggleElevationVisibility}>
         Elevation Profile
       </div>
     );
@@ -76,7 +72,7 @@ const Elevation = ({
   });
 
   return (
-    <div className="elevation" /*hidden={isMobile && mobileView !== 'map'}*/>
+    <div className="elevation">
       <div className="close-box d-print-none" onClick={toggleElevationVisibility}>
         &minus;
       </div>

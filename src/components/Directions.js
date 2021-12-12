@@ -1,6 +1,9 @@
 import { useSelector } from 'react-redux';
 
 import appConfig from 'appConfig';
+
+import Card from 'components/Card';
+
 import Weather from './weather';
 
 import {
@@ -12,7 +15,7 @@ import {
 } from 'lib/helper';
 import { getCenter } from 'lib/map';
 
-const Directions = ({ mobileView }) => {
+const Directions = () => {
   const directions = useSelector((state) => state.search.directions);
   const startAddress = useSelector((state) => state.search.startAddress);
   const endAddress = useSelector((state) => state.search.endAddress);
@@ -22,9 +25,7 @@ const Directions = ({ mobileView }) => {
   const elevationProfile = useSelector((state) => state.search.elevationProfile);
 
   const getDirections = () => {
-    if (!directions) {
-      return '';
-    }
+    if (!directions) return '';
 
     const directionsList = directions.reduce((memo, direction, idx) => {
       if (direction[1] !== 'nameless') {
@@ -78,21 +79,9 @@ const Directions = ({ mobileView }) => {
   };
 
   return (
-    <div
-      className="directions"
-      // hidden={isMobile && mobileView !== 'directions'}
-    >
-      {getDirections()}
-
-      <div className="disclaimer">
-        We offer no guarantee regarding roadway conditions or safety of the proposed
-        routes. Use your best judgment when choosing a route. Obey all vehicle code
-        provisions.
-      </div>
-      <a className="disclaimer" href={appConfig.ABOUT_LINK_URL}>
-        {appConfig.ABOUT_LINK_TITLE}
-      </a>
-    </div>
+    <Card>
+      <Card.Content>{getDirections()}</Card.Content>
+    </Card>
   );
 };
 

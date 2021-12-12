@@ -37,7 +37,8 @@
     "react-redux": "^7.2.6",
     "recharts": "^2.1.6",
     "redux": "^4.1.2",
-    "sass": "^1.43.5"
+    "sass": "^1.43.5",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "eslint": "<8.0.0",

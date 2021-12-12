@@ -9,6 +9,7 @@ let isDragging;
 let dragType;
 let isCursorOverPoint;
 let mouseOverMarker = false;
+
 const startLayer = {
   id: 'start',
   type: 'circle',
@@ -313,9 +314,7 @@ export function getPathDistance(path) {
 }
 
 export function updateMapSize() {
-  if (!map) {
-    return;
-  }
+  if (!map) return;
 
   map.resize();
   fitBounds();
